@@ -5,6 +5,9 @@
     <span *ngIf="myForm.submitted && form.controls.name.errors?.required">
       Le champs user est requis.
     </span>
+    <span *ngIf="myForm.submitted && form.controls.name.errors?.invalidName">
+      {{form.controls.name.errors.invalidName.message}}
+    </span>
   </label>
   <label>
     LastName :
