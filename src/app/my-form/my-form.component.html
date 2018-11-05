@@ -1,0 +1,24 @@
+<form (ngSubmit)="form.valid && onSubmit()" [formGroup]="form" #myForm="ngForm">
+  <label>
+    User :
+    <input type="text" formControlName="name">
+    <span *ngIf="myForm.submitted && form.controls.name.errors?.required">
+      Le champs user est requis.
+    </span>
+  </label>
+  <label>
+    LastName :
+    <input type="text" formControlName="lastName">
+  </label>
+  <label>
+    Age :
+    <input type="text" formControlName="age">
+    <span *ngIf="myForm.submitted && form.controls.age.errors?.min">
+      L'age minimum est de 18 ans.
+    </span>
+  </label>
+
+  <button type="submit">Send !</button>
+  <button type="button" (click)="updateSomeProperties()">Update some properties</button>
+  <button type="button" (click)="updatAllProperties()">Update all properties</button>
+</form>
