@@ -7,6 +7,7 @@
     </span>
     <span *ngIf="myForm.submitted && form.controls.name.errors?.invalidName">
       {{form.controls.name.errors.invalidName.message}}
+      {{form.controls.name.errors.expectedValue}}
     </span>
   </label>
   <label>

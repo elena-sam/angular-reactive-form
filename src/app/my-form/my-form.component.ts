@@ -12,7 +12,10 @@ export class MyFormComponent implements OnInit {
     name: ['', [Validators.required, this.invalidName()]],
     lastName: [''],
     age: ['', Validators.min(18)]
-  });
+  }
+  // si validator au niveau du groupe :
+  // { validator: [this.invalidName()]}
+  );
 
   constructor(private fb: FormBuilder) { }
 
@@ -39,6 +42,7 @@ export class MyFormComponent implements OnInit {
    * Mise à jour de toutes les propriétés
    */
   updatAllProperties() {
+    // avec setValue, obligation de renseigner TOUS les champs
     this.form.setValue({
       name: 'Kiti',
       lastName: 'Bad',
@@ -46,12 +50,18 @@ export class MyFormComponent implements OnInit {
     });
   }
 
+  // creation de notre propre validateur
   invalidName(): ValidatorFn {
+    // code dispo sur Angular
     return (control: AbstractControl): ValidationErrors | null => {
-
+          // début de la fonction
+          // as string -> conversion de string, car value est de type any
       if ((control.value as string).toLowerCase() === 'max') {
+      // si on fait au niveau du formGroup :
+      // if ((control.get('name').value as string).toLowerCase() === 'max') {
         console.log('return invalid');
-        return { 'invalidName': { message: 'C\'est raciste' } };
+        // invalidName est ce qu'on met dans le html -> form.controls.name.errors?.invalidName
+        return { 'invalidName': { message: 'C\'est raciste' }, expectedValue: 'MaxLePatron' };
       } else {
         console.log('return valid');
         return null;
